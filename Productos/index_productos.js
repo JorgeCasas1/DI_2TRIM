@@ -1,89 +1,122 @@
-document.querySelector(".clase");
-document.querySelector("#id");
-document.querySelector("tag");
-document.querySelector("div.cotenido ul.lista-principal input[type=text]");
+// document.getElementById("id") -> HTML
+// document.getElementByClass("btn") -> HTML
+// document.getElementByTag("button") -> HTML
+// let botones =  document.getElementsByClassName("btn") -> HTML ELEMENT -> LIST
+// document.querySelector(".clase") -> HTML
+// document.querySelector("#id") -> HTML
+// document.querySelector("tag") -> HTML
+// document.querySelector("div.contenido ul.lista-principal input[type=text]")
 
-// Forma de verificar si funciona mirar si aparece en consola, sino esta bien aparece null
-// Declaramos las constantes de los elementos a los elementos que queremos acceder mediante lógica.
-
-// Referencia de mis y id y tag
+const botonRegistrar = document.querySelector("#boton-registrar");
+const botonLimpiar = document.querySelector("#boton-limpiar");
+const inputNombre = document.querySelector("#input-nombre");
 const inputPrecio = document.querySelector("#input-precio");
 const inputDescripcion = document.querySelector("#input-descripcion");
-const inputNombre = document.querySelector("#input-nombre");
 const selectCategoria = document.querySelector("#select-categoria");
 const spanCaracteres = document.querySelector("span");
-
-// Referencia de mi lista de productos cont tag ul
 const listaProductos = document.querySelector("ul");
+const botonVaciar = document.querySelector("#boton-vaciar");
 
-// Evento de tipo click para detectar el boton y aplicar la lógica
-botonRegistrar.addEventListener("click", (e) => {
-  /*console.log(inputNombre.value);
-  console.log(inputPrecio.value);
-  console.log(inputDescripcion.value);
-  console.log(selectCategoria.value);*/
-
-  // El innerHTML nos sirve para leer el elemento dentro del contenido HTML y poder modificarlo
-  const precio = parseFloat(inputPrecio.value);
-  // Queremos que se modifique el contador al meter productos en la lista por tanto ponemos let y lo parseamos para que su contenido sea un entero
-  let contador = parseInt(spanCaracteres.innerHTML);
-  // Convertimos el inputPrecio en Float para poder realizar la validación
-  if (inputNombre.value.trim() == "" || precio <= 0 || isNaN(precio)) {
+inputDescripcion.addEventListener("input", (e) => {
+  // Detecta los que se escriba en el input -> evento tipo input
+  // Obtenemos longitud actual del input
+  const totalCaracteres = inputDescripcion.value.length;
+  // Actualizamos el span con el número real
+  spanCaracteres.innerHTML = totalCaracteres;
+  // Si sobrepasas los caracteres saldrá en color rojo
+  if (totalCaracteres > 100) {
+    spanCaracteres.style.color = "red";
+    spanCaracteres.innerHTML = 100;
     Swal.fire({
+      title: "Error",
+      text: "Sobrepasaste los carácteres que puedes introducir",
       icon: "error",
-      title: "¡Error!",
-      text: "Debes rellenar el nombre y un precio válido (mayor a 0)",
-      timer: 2000,
-      showConfirmButton: false,
+      timer: 1500,
     });
-    return;
-  } else {
-    listaProductos.innerHTML += `<li class='listaProductos'>${inputNombre.value} - ${inputPrecio.value}$</li>`;
-    // Una vez se añada el producto a la lista se suma el contador
-    contador++;
-    // y se actualiza el valor del html (ej-> 0 a 1)
-    spanCaracteres.innerHTML = contador;
-    // Sacamos el msj de que el producto se introdujo de manera correcta
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: `Producto con nombre ${inputNombre.value} añadido correctamente`,
-      showConfirmButton: false,
-      timer: 2000,
-    });
-
-    // Limpiamos los campos
-    inputNombre.value = "";
-    inputPrecio.value = "";
-    inputDescripcion.value = "";
-    selectCategoria.value = -1;
   }
+});
+
+botonVaciar.addEventListener("click", (e) => {
+  vaciarInputs(inputNombre, inputPrecio, inputDescripcion);
 });
 
 botonLimpiar.addEventListener("click", (e) => {
-  // cuando ponemos listaProductos.innerHTML hacemos referencia a lo que se encuentra dentro.
-  if (listaProductos.innerHTML == "") {
-    Swal.fire({
-      icon: "error",
-      title: "¡Error!",
-      text: "La lista ya esta vacía",
-      timer: 2000,
-      showConfirmButton: false,
-    });
-    return;
-  }
-
-  listaProductos.innerHTML = "";
-  Swal.fire({
-    position: "top-end",
-    icon: "success",
-    title: `Lista vaciada correctamente`,
-    showConfirmButton: false,
-    timer: 2000,
-  });
-  // Limpiamos los campos
-  inputNombre.value = "";
-  inputPrecio.value = "";
-  inputDescripcion.value = "";
-  selectCategoria.value = -1;
+  listaProductos.classList.add("animate__animated", "animate__swing");
+  setTimeout(() => {
+    listaProductos.innerHTML = "";
+    listaProductos.classList.remove("animate__animated", "animate__swing");
+  }, 700);
 });
+
+botonRegistrar.addEventListener("click", (e) => {
+  if (
+    inputNombre.value.length > 0 &&
+    Number(inputPrecio.value) > 0 &&
+    inputDescripcion.value.length > 0
+  ) {
+    insertarProducto(inputNombre.value, inputPrecio.value);
+  } else {
+    Swal.fire({
+      title: "Error",
+      text: "Falta algun dato por rellenar",
+      icon: "error",
+      timer: 1500,
+    });
+  }
+  // mediante swAlerts avisar de que el producto con nombre XX añadido correctamente
+  // desaparece a las 2seg
+  // todos los campos se limpian
+  // no
+  // lanza un dialogo de error con swAlerts
+});
+function vaciarInputs() {
+  for (let index = 0; index < arguments.length; index++) {
+    const element = (arguments[index].value = "");
+  }
+}
+function limpiarCampos() {
+  for (let index = 0; index < arguments.length; index++) {
+    const element = (arguments[index].value = "");
+  }
+}
+
+function insertarProducto(nombre, precio) {
+  // listaProductos.innerHTML += `<li class='list-group-item animate__animated animate__fadeInRight'>${nombre} - ${precio} <button class='btn btn-danger'>Eliminar</button></li>`;
+  // crea li logico comparte las configuraciones dadas
+  let nodoLI = document.createElement("li");
+  nodoLI.textContent = `${nombre} - ${precio}`;
+  nodoLI.className = "list-group-item animate__animated animate__fadeInRight";
+  nodoLI.classList.add(
+    "list-group-item",
+    "animate__animated",
+    "animate__fadeInRight",
+  );
+  // Creo la etiqueta
+  let nodoBoton = document.createElement("button");
+  // La personalizo
+  nodoBoton.classList.add("btn", "btn-danger", "ms-4");
+
+  // La doy un nombre
+  nodoBoton.textContent = "Eliminar";
+  nodoLI.appendChild(nodoBoton);
+  // Escuchamos el boton creado
+  nodoBoton.addEventListener("click", (e) => {
+    // Metemos la lógica para eliminar el boton
+    nodoLI.classList.remove("animate__fadeInRight");
+    // Coge un elemento de la lista
+    // Sólo puede existitir una animacion por tanto lo borramos
+    nodoLI.classList.add("animate__bounceOut");
+    // Me permite que tarde unos segundos en ejecutarse el eliminado del elemento de la lista
+    setTimeout(() => {
+      listaProductos.removeChild(nodoLI);
+    }, 700);
+  });
+  listaProductos.appendChild(nodoLI);
+  Swal.fire({
+    title: "Exito",
+    text: "Producto agregado correctamente",
+    icon: "success",
+    timer: 1500,
+  });
+  limpiarCampos(inputNombre, inputPrecio, inputDescripcion);
+}
