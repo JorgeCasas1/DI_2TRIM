@@ -48,9 +48,6 @@ function contadorCaracteres() {
   inputTextoQuePasa.addEventListener("input", (e) => {
     const totalCaracteres = inputTextoQuePasa.value.length;
     spanCaracter.innerHTML = totalCaracteres;
-    if (totalCaracteres == 200) {
-      spanCaracter.innerHTML = 200;
-    }
   });
 }
 
