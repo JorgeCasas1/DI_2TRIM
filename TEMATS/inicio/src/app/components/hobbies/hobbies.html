@@ -1,0 +1,36 @@
+<main class="container mt-4">
+  <h1>FORMULARIO HOBBIES</h1>
+  <p>Introduce tus datos para comenzar:</p>
+
+  <input
+    #inputNombre
+    class="form-control mb-2"
+    placeholder="Escribe tu nombre"
+    type="text"
+    [(ngModel)]="nombre"
+  />
+  <input
+    #inputNivel
+    class="form-control mb-2"
+    placeholder="Escribe tu nivel"
+    type="text"
+    [(ngModel)]="nivel"
+  />
+
+  <input
+    #inputFecha
+    class="form-control mb-2"
+    placeholder="Escribe la fecha"
+    type="text"
+    [(ngModel)]="fecha"
+  />
+
+  <button class="btn btn-primary w-100 mb-4" (click)="agregarHobbie()">Agregar</button>
+  <ul class="list-group">
+    <!--Repetir el LI-->
+    @for (item of listaHobbies; track $index) {
+      <!--Declararlo en la parte logica-->
+      <li class="list-group-item">{{ item.nombre }}-{{ item.nivel }}</li>
+    }
+  </ul>
+</main>

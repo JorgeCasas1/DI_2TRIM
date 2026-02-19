@@ -1,21 +1,16 @@
 import { Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+import Swal from 'sweetalert2';
+import { Hobbies } from './components/hobbies/hobbies';
+import { Tareas } from './components/tareas/tareas';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [FormsModule, RouterOutlet], // me permite utilizar ngModel en la parte del html
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('inicio');
-  nombre? = '';
-  apellido? = '';
-  nota? = 0;
-  imagen = 'https://cdn-icons-png.flaticon.com/512/3135/3135768.png';
-  procesarRespuesta(nombre: string, apellido: string, nota: string) {
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.nota = Number(nota);
-  }
+  // logica de respuesta en nuestro html
 }
