@@ -9,5 +9,7 @@ export const routes: Routes = [
   { path: 'home', component: Home },
   { path: 'hobbies', component: Hobbies },
   { path: 'tareas', component: Tareas },
+  //: indica que se le pasa un parametro por la url no una ruta
+  { path: 'tareas/:id', component: Tareas },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];

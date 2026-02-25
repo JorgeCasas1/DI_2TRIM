@@ -1,0 +1,23 @@
+<div class="mb-4">
+  <h1>Agregar libros</h1>
+  <input
+    class="form-control mb-3"
+    [(ngModel)]="titulo"
+    type="text"
+    placeholder="Escribe el titulo del libro"
+  />
+  <input
+    class="form-control mb-3"
+    [(ngModel)]="ano"
+    type="date"
+    placeholder="Escribe la fecha del libro"
+  />
+  <input
+    class="form-control mb-3"
+    [(ngModel)]="paginas"
+    type="number"
+    placeholder="Escribe el número de paginas del libro"
+  />
+</div>
+
+<button type="submit" class="btn btn-primary" (click)="agregar()">Agregar libro</button>

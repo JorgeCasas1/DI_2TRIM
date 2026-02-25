@@ -1,0 +1,44 @@
+<!--// 1. CREAR PROYECTO LLAMADO TODOLIST
+// 2. COMPONENT
+// APPROOT//APPTAREA//APPTAREAS(2)//APPBUSCADOR(3)//APPAGREGAR(1) //APPHOME (4)// APPDETALLE
+// 3. NAVEGABLE TODO MENOS APPTAREA
+// 4. LANDING -> PAGINA DE INICIO
+// 1. FORMULARIO ADD TAREA -> ID,TITULO, RESPONSABLE, FECHA,PRIORIDAD (ALTA,BAJA,MEDIA)
+// 2. LISTA CARTAS -> DONDE MUESTRAN TAREAS
+// 3. DATOS DE UNA TAREA-->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" [routerLink]="['home']">Home</a>
+        <a class="nav-link" [routerLink]="['listar']">Tareas</a>
+        <a class="nav-link" [routerLink]="['agregar']">Agregar tarea</a>
+        <a class="nav-link" [routerLink]="['buscar']">Buscador tareas</a>
+        <a class="nav-link" [routerLink]="['detalle']">Buscador tareas</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>
+<!--
+// comando para crear proyecto ng new nombreProyecto --skip-tests
+// ng g c components/nombre
+// ssr:yes
+// ccs
+// NO AGENT
+-->
